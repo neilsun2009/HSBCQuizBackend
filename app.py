@@ -1,11 +1,11 @@
 from flask import Flask, make_response, request, jsonify
 import os
 import requests
-from .config import (
+from myserver.config import (
     STATIC_URL_PREFIX, 
 )
-from .api import register_apis
-from .stat import prepare_stats
+from myserver.api import register_apis
+from myserver.stat import prepare_stats
 
 app = Flask(__name__,
     # static_url_path='https://szbstorage.z20.web.core.windows.net/',
