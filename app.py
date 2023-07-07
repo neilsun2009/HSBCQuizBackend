@@ -1,11 +1,11 @@
 from flask import Flask, make_response, request, jsonify
 import os
 import requests
-
-STATIC_URL_PREFIX = 'https://szbstorage.z20.web.core.windows.net/'
-HUGGINGFACE_BEARER = os.environ.get('HF_BEARER')
-HUGGINGFACE_MODEL_ID = 'neilsun2009/amz_movie_tv_distilgpt2_1k'
-HUGGINGFACE_API_URL = f"https://api-inference.huggingface.co/models/{HUGGINGFACE_MODEL_ID}"
+from .config import (
+    STATIC_URL_PREFIX, 
+)
+from .api import register_apis
+from .stat import prepare_stats
 
 app = Flask(__name__,
     # static_url_path='https://szbstorage.z20.web.core.windows.net/',
@@ -14,37 +14,9 @@ app = Flask(__name__,
     instance_relative_config=True,
 )
 
-@app.route("/api/comments/auto_completion", methods=('GET', ))
-def get_auto_completion_comment():
-    comment = request.args.get('comment', '')
-    result = {
-        'comment': '',
-        'isLoading': True,
-    }
-    if comment != '':
-        res = requests.post(HUGGINGFACE_API_URL, 
-            headers={
-                "Authorization": f'Bearer {HUGGINGFACE_BEARER}'
-            }, 
-            json={
-                "inputs": comment,
-                # these params actually are not useable for PEFT models
-                "parameters": {
-                    "return_full_text": False,
-                    "temperature": 5.0,
-                    "repetition_penalty": 10.0,
-                    "top_k": 5
-                }
-            }
-        )
-        json_result = res.json()
-        print(json_result)
-        if res.status_code == 200:
-            result = {
-                'comment': json_result[0].strip(),
-                'isLoading': False,
-            }
-    return jsonify(result)
+prepare_stats()
+
+register_apis(app)
 
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
