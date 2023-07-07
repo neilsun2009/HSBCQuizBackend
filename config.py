@@ -10,4 +10,4 @@ STATS_BASE_DIR = './stats/'
 
 KEYWORD_TOP100_PATH = os.path.join(STATS_BASE_DIR, 'keyword/top100.json')
 KEYWORD_SELECTED_WORDS_PATH = os.path.join(STATS_BASE_DIR, 'keyword/selected_words.json')
-KEYWORD_OCCURENCE_PATH = os.path.join(STATS_BASE_DIR, 'keyword/occurence.json')
+KEYWORD_OCCURRENCE_PATH = os.path.join(STATS_BASE_DIR, 'keyword/occurrence.json')

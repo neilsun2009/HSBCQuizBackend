@@ -56,7 +56,7 @@ def register_apis(app):
         stat = get_stat('keyword_selected_words')
         return jsonify(stat)
 
-    @app.route("/api/analysis/keywords/occurence", methods=('GET', ))
+    @app.route("/api/analysis/keywords/occurrence", methods=('GET', ))
     def get_keyword_occurence():
-        stat = get_stat('keyword_occurence')
+        stat = get_stat('keyword_occurrence')
         return jsonify(stat)
