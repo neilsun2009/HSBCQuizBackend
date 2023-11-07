@@ -1,2 +1,2 @@
-# HSBCQuizBackend
-Backend code base from HSBC quiz
+# JuneQuizBackend
+Backend code base from June quiz
